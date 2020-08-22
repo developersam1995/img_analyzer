@@ -44,8 +44,9 @@ func main() {
 	var cv faceAnalyzer = newMsCvAnlayzer(subKey, endPoint)
 
 	result := make(map[string]int)
-
 	responses := make([]chan imageAnalysis, 0, len(fileInfos))
+
+	// Two for loops to use make parallel requests
 	for _, fi := range fileInfos {
 		f, _ := os.Open(pathToImages + "/" + fi.Name())
 		resp := cv.analyzeFaces(f)
