@@ -76,6 +76,13 @@ func (m *microsoftCv) analyzeFaces(i io.Reader) chan imageAnalysis {
 		}
 
 		resp := analyzedResponse{}
+
+		if res.StatusCode != http.StatusOK {
+			fmt.Println(string(respBody))
+			close(ia)
+			return
+		}
+
 		jsonErr := json.Unmarshal(respBody, &resp)
 		if jsonErr != nil {
 			log.Println(jsonErr)
