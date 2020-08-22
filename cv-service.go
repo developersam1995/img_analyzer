@@ -53,6 +53,7 @@ func (m *microsoftCv) analyzeFaces(i io.Reader) chan imageAnalysis {
 	if newReqErr != nil {
 		fmt.Println(newReqErr)
 		close(ia)
+		return ia
 	}
 
 	req.Header.Add("content-type", "application/octet-stream")
@@ -64,12 +65,14 @@ func (m *microsoftCv) analyzeFaces(i io.Reader) chan imageAnalysis {
 		if reqErr != nil {
 			fmt.Println(reqErr)
 			close(ia)
+			return
 		}
 
 		respBody, bodyErr := ioutil.ReadAll(res.Body)
 		if bodyErr != nil {
 			fmt.Println(bodyErr)
 			close(ia)
+			return
 		}
 
 		resp := analyzedResponse{}
@@ -77,6 +80,7 @@ func (m *microsoftCv) analyzeFaces(i io.Reader) chan imageAnalysis {
 		if jsonErr != nil {
 			log.Println(jsonErr)
 			close(ia)
+			return
 		}
 
 		ia <- imageAnalysis{
