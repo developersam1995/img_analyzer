@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 )
 
 // Service that provides the face analysis
@@ -51,6 +52,7 @@ func main() {
 		f, _ := os.Open(pathToImages + "/" + fi.Name())
 		resp := cv.analyzeFaces(f)
 		responses = append(responses, resp)
+		<-time.After(time.Second * 5)
 	}
 
 	for i, resp := range responses {

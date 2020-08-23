@@ -8,3 +8,4 @@ Program to analyze number of faces in images. It takes path to a directory conta
 * "MSCV_ENDPOINT" : Microsoft Coginitive Services endpoint
 * "MSCV_SUBKEY" : Corresponding Microsoft cognitive services subscription key.
 
+Note: 5 sec delay between requests is added, because of the limits imposed by Microsoft services.
