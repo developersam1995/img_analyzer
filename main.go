@@ -49,8 +49,11 @@ func main() {
 
 	// Two for loops to use make parallel requests
 	for _, fi := range fileInfos {
-		f, _ := os.Open(pathToImages + "/" + fi.Name())
-		resp := cv.analyzeFaces(f)
+		img, err := upscale(pathToImages + "/" + fi.Name())
+		if err != nil {
+			fmt.Printf("Could not not process %s, err: %s", fi.Name(), err.Error())
+		}
+		resp := cv.analyzeFaces(img)
 		responses = append(responses, resp)
 		<-time.After(time.Second * 5)
 	}
