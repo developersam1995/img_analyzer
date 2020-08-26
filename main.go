@@ -49,7 +49,7 @@ func main() {
 
 	// Two for loops to use make parallel requests
 	for _, fi := range fileInfos {
-		img, err := upscale(pathToImages + "/" + fi.Name())
+		img, err := upscale(pathToImages+"/"+fi.Name(), 4)
 		if err != nil {
 			fmt.Printf("Could not not process %s, err: %s", fi.Name(), err.Error())
 		}

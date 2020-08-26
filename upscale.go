@@ -9,7 +9,8 @@ import (
 	"github.com/anthonynsimon/bild/transform"
 )
 
-func upscale(fileName string) (i io.Reader, err error) {
+//This function takes an imagefilename and upscale factor, returns an in memory reader for the upscaled image
+func upscale(fileName string, factor int) (i io.Reader, err error) {
 	f, err := os.Open(fileName)
 	defer f.Close()
 	if err != nil {
@@ -26,7 +27,7 @@ func upscale(fileName string) (i io.Reader, err error) {
 		return
 	}
 
-	resized := transform.Resize(img, c.Width*4, c.Height*4, transform.Linear)
+	resized := transform.Resize(img, c.Width*factor, c.Height*factor, transform.Linear)
 	pngEncoder := imgio.PNGEncoder()
 
 	r, w := io.Pipe()
