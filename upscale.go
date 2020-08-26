@@ -30,6 +30,9 @@ func upscale(fileName string) (i io.Reader, err error) {
 	pngEncoder := imgio.PNGEncoder()
 
 	r, w := io.Pipe()
-	pngEncoder(w, resized)
+	go func() {
+		pngEncoder(w, resized)
+		w.Close()
+	}()
 	return r, nil
 }
